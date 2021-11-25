@@ -65,7 +65,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_ADJUST] = LAYOUT(
     // ,-------+-------+-------+-------+-------+-------|                            |-------+-------+-------+-------+-------+-------.
-        _______,KC_F1  ,KC_F2  ,KC_F3  ,KC_F4  ,KC_F5  ,                             KC_F6  ,KC_7   ,KC_F8  ,KC_F9  ,KC_F10 ,KC_F11 ,
+        _______,KC_F1  ,KC_F2  ,KC_F3  ,KC_F4  ,KC_F5  ,                             KC_F6  ,KC_F7  ,KC_F8  ,KC_F9  ,KC_F10 ,KC_F11 ,
     // |-------+-------+-------+-------+-------+-------|                            |-------+-------+-------+-------+-------+-------|
         _______,_______,_______,_______,_______,_______,                             _______,_______,_______,_______,_______,KC_F12 ,
     // |-------+-------+-------+-------+-------+-------|                            |-------+-------+-------+-------+-------+-------|
@@ -76,9 +76,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 };
 
-uint32_t layer_state_set_user(uint32_t state) {
-    return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
-}
 
 #ifdef OLED_DRIVER_ENABLE
 
@@ -98,16 +95,16 @@ static void print_status_narrow(void) {
     oled_write_ln_P(PSTR("LAYER"), false);
     switch (get_highest_layer(layer_state)) {
         case _BASE:
-            oled_write_ln_P(PSTR("Bas"), false);
+            oled_write_ln_P(PSTR("1st"), false);
             break;
         case _LOWER:
-            oled_write_ln_P(PSTR("Low"), false);
+            oled_write_ln_P(PSTR("2nd"), false);
             break;
         case _RAISE:
-            oled_write_ln_P(PSTR("Rai"), false);
+            oled_write_ln_P(PSTR("3rd"), false);
             break;
         case _ADJUST:
-            oled_write_ln_P(PSTR("Adj"), false);
+            oled_write_ln_P(PSTR("4th"), false);
             break;
         default:
             oled_write_P(PSTR("Undef"), false);
@@ -153,32 +150,78 @@ void oled_task_user(void) {
 #ifdef ENCODER_ENABLE
 
 /* Rotary encoder settings */
-void encoder_update_user(uint8_t index, bool clockwise) {
+
+keyevent_t encoder_left_ccw  = {
+    .key = (keypos_t){.row = 3, .col = 0},
+    .pressed = false
+};
+
+keyevent_t encoder_left_cw  = {
+    .key = (keypos_t){.row = 3, .col = 1},
+    .pressed = false
+};
+
+keyevent_t encoder_right_ccw  = {
+    .key = (keypos_t){.row = 7, .col = 4},
+    .pressed = false
+};
+
+keyevent_t encoder_right_cw  = {
+    .key = (keypos_t){.row = 7, .col = 5},
+    .pressed = false
+};
+
+void matrix_scan_user(void) {
+    if (IS_PRESSED(encoder_left_ccw)) {
+        encoder_left_ccw.pressed = false;
+        encoder_left_ccw.time = (timer_read() | 1);
+        action_exec(encoder_left_ccw);
+    }
+
+    if (IS_PRESSED(encoder_left_cw)) {
+        encoder_left_cw.pressed = false;
+        encoder_left_cw.time = (timer_read() | 1);
+        action_exec(encoder_left_cw);
+    }
+
+    if (IS_PRESSED(encoder_right_ccw)) {
+        encoder_right_ccw.pressed = false;
+        encoder_right_ccw.time = (timer_read() | 1);
+        action_exec(encoder_right_ccw);
+    }
+
+    if (IS_PRESSED(encoder_right_cw)) {
+        encoder_right_cw.pressed = false;
+        encoder_right_cw.time = (timer_read() | 1);
+        action_exec(encoder_right_cw);
+    }
+}
+
+bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {
         // Left rotary
-        switch (get_highest_layer(layer_state)) {
-            case _BASE:
-            case _LOWER:
-            case _RAISE:
-            case _ADJUST:
-                tap_code(clockwise ? KC_WH_U : KC_WH_D);
-                break;
-            default:
-                break;
+        if (!clockwise){
+            encoder_left_cw.pressed = true;
+            encoder_left_cw.time = (timer_read() | 1);
+            action_exec(encoder_left_cw);
+        } else {
+            encoder_left_ccw.pressed = true;
+            encoder_left_ccw.time = (timer_read() | 1);
+            action_exec(encoder_left_ccw);
         }
     } else if (index == 1) {
         // Right rotary Note:Reverse Rotation
-        switch (get_highest_layer(layer_state)) {
-            case _BASE:
-            case _LOWER:
-            case _RAISE:
-            case _ADJUST:
-                tap_code(clockwise ? KC_WH_U : KC_WH_D);
-                break;
-            default:
-                break;
+        if (!clockwise){
+            encoder_right_cw.pressed = true;
+            encoder_right_cw.time = (timer_read() | 1);
+            action_exec(encoder_right_cw);
+        } else {
+            encoder_right_ccw.pressed = true;
+            encoder_right_ccw.time = (timer_read() | 1);
+            action_exec(encoder_right_ccw);
         }
     }
+    return true;
 }
 
 #endif

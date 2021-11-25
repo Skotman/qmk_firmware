@@ -105,13 +105,13 @@ static void print_status_narrow(void) {
             oled_write_ln_P(PSTR("1st"), false);
             break;
         case _FN:
-            oled_write_ln_P(PSTR("FN"), false);
-            break;
-        case _SECOND:
             oled_write_ln_P(PSTR("2nd"), false);
             break;
-        case _THIRD:
+        case _SECOND:
             oled_write_ln_P(PSTR("3rd"), false);
+            break;
+        case _THIRD:
+            oled_write_ln_P(PSTR("4th"), false);
             break;
         default:
             oled_write_P(PSTR("Undef"), false);
@@ -157,36 +157,78 @@ void oled_task_user(void) {
 #ifdef ENCODER_ENABLE
 
 /* Rotary encoder settings */
-void encoder_update_user(uint8_t index, bool clockwise) {
+
+keyevent_t encoder_left_ccw  = {
+    .key = (keypos_t){.row = 1, .col = 6},
+    .pressed = false
+};
+
+keyevent_t encoder_left_cw  = {
+    .key = (keypos_t){.row = 2, .col = 6},
+    .pressed = false
+};
+
+keyevent_t encoder_right_ccw  = {
+    .key = (keypos_t){.row = 3, .col = 6},
+    .pressed = false
+};
+
+keyevent_t encoder_right_cw  = {
+    .key = (keypos_t){.row = 4, .col = 6},
+    .pressed = false
+};
+
+void matrix_scan_user(void) {
+    if (IS_PRESSED(encoder_left_ccw)) {
+        encoder_left_ccw.pressed = false;
+        encoder_left_ccw.time = (timer_read() | 1);
+        action_exec(encoder_left_ccw);
+    }
+
+    if (IS_PRESSED(encoder_left_cw)) {
+        encoder_left_cw.pressed = false;
+        encoder_left_cw.time = (timer_read() | 1);
+        action_exec(encoder_left_cw);
+    }
+
+    if (IS_PRESSED(encoder_right_ccw)) {
+        encoder_right_ccw.pressed = false;
+        encoder_right_ccw.time = (timer_read() | 1);
+        action_exec(encoder_right_ccw);
+    }
+
+    if (IS_PRESSED(encoder_right_cw)) {
+        encoder_right_cw.pressed = false;
+        encoder_right_cw.time = (timer_read() | 1);
+        action_exec(encoder_right_cw);
+    }
+}
+
+bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {
         // Left rotary
-        switch (get_highest_layer(layer_state)) {
-            case _FIRST:
-            case _SECOND:
-            case _THIRD:
-                tap_code(clockwise ? KC_WH_U : KC_WH_D);
-                break;
-            case _FN:
-                tap_code(clockwise ? KC_UP : KC_DOWN);
-                break;
-            default:
-                break;
+        if (!clockwise){
+            encoder_left_cw.pressed = true;
+            encoder_left_cw.time = (timer_read() | 1);
+            action_exec(encoder_left_cw);
+        } else {
+            encoder_left_ccw.pressed = true;
+            encoder_left_ccw.time = (timer_read() | 1);
+            action_exec(encoder_left_ccw);
         }
     } else if (index == 1) {
         // Right rotary Note:Reverse Rotation
-        switch (get_highest_layer(layer_state)) {
-            case _FIRST:
-            case _SECOND:
-            case _THIRD:
-                tap_code(clockwise ? KC_WH_U : KC_WH_D);
-                break;
-            case _FN:
-                tap_code(clockwise ? KC_UP : KC_DOWN);
-                break;
-            default:
-                break;
+        if (!clockwise){
+            encoder_right_cw.pressed = true;
+            encoder_right_cw.time = (timer_read() | 1);
+            action_exec(encoder_right_cw);
+        } else {
+            encoder_right_ccw.pressed = true;
+            encoder_right_ccw.time = (timer_read() | 1);
+            action_exec(encoder_right_ccw);
         }
     }
+    return true;
 }
 
 #endif

@@ -25,7 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID   0x3634
 #define DEVICE_VER   0x0002
 #define MANUFACTURER kushima8
-#define PRODUCT      re64
+#define PRODUCT      Re64
 #define DESCRIPTION  60% split keyboard
 
 /* key matrix size */
@@ -71,8 +71,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define RGB_DI_PIN D3
 #ifdef RGB_DI_PIN
-    #define RGBLED_NUM 68
-    #define RGBLED_SPLIT { 34, 34 }
+    #define RGBLED_NUM 80
+    #define RGBLED_SPLIT { 40, 40 }
 //#    define RGBLIGHT_HUE_STEP 8
 //#    define RGBLIGHT_SAT_STEP 8
 //#    define RGBLIGHT_VAL_STEP 8
