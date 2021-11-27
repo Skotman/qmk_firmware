@@ -31,7 +31,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* key matrix size */
 #define MATRIX_ROWS 10
 #define MATRIX_COLS 7
-#define DISABLE_LEADER
 
 /*
  * Keyboard Matrix Assignments
@@ -51,8 +50,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DIODE_DIRECTION COL2ROW
 
 /* Split hand configration */
-//#define SPLIT_HAND_MATRIX_GRID B5, B1
-//#define SPLIT_HAND_MATRIX_GRID_LOW_IS_RIGHT
+#define SPLIT_USB_DETECT
+#define SPLIT_HAND_MATRIX_GRID B5, B1
+#define SPLIT_HAND_MATRIX_GRID_LOW_IS_RIGHT
 #define MASTER_LEFT
 /* Rotary encoder define*/
 #define ENCODERS_PAD_A { C6 }
@@ -66,6 +66,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #define SOFT_SERIAL_PIN D2  // or D1, D2, D3, E6
 #define SPLIT_OLED_ENABLE
+
 //#define BACKLIGHT_PIN B7
 //#define BACKLIGHT_LEVELS 3
 //#define BACKLIGHT_BREATHING
@@ -84,7 +85,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /*== or choose animations ==*/
  //   #define RGBLIGHT_EFFECT_BREATHING
  //   #define RGBLIGHT_EFFECT_RAINBOW_MOOD
-//#    define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+//#    define RGBLIGHT_EFFECT_RAINBOW_SWIRL``
 //#    define RGBLIGHT_EFFECT_SNAKE
 //#    define RGBLIGHT_EFFECT_KNIGHT
 //#    define RGBLIGHT_EFFECT_CHRISTMAS
@@ -151,7 +152,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* disable action features */
 //#define NO_ACTION_LAYER
 #define NO_ACTION_TAPPING
-#define NO_ACTION_ONESHOT
+//#define NO_ACTION_ONESHOT
 
 /* disable these deprecated features by default */
 #define NO_ACTION_MACRO
