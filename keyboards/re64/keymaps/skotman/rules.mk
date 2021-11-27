@@ -2,14 +2,14 @@
 MCU = atmega32u4
 
 # Bootloader selection
-BOOTLOADER = unknown
-BOOTLOADER_SIZE = 512
+BOOTLOADER = atmel-dfu
 
-VIA_ENABLE = yes
-LTO_ENABLE = no
+VIA_ENABLE = no
+LTO_ENABLE = yes
 SPACE_CADET_ENABLE= no
 GRAVE_ESC_ENABLE = no
 MAGIC_ENABLE = no
+MIDI_ENABLE = no
 # Build Options
 #   change yes to no to disable
 #
@@ -28,5 +28,9 @@ BLUETOOTH_ENABLE = no       # Enable Bluetooth
 AUDIO_ENABLE = no           # Audio output
 IOS_DEVICE_ENABLE = yes     # connect to IOS device (iPad,iPhone)
 ENCODER_ENABLE = yes        # Add rotary encoder support
-OLED_DRIVER_ENABLE = yes     # Add OLED displays support
+OLED_ENABLE = yes     # Add OLED displays support
 SPLIT_KEYBOARD = yes
+TAP_DANCE_ENABLE = no
+COMBO_ENABLE = no
+UNICODE_ENABLE = no
+EXTRAFLAGS += -flto

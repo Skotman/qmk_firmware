@@ -31,6 +31,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* key matrix size */
 #define MATRIX_ROWS 10
 #define MATRIX_COLS 7
+#define DISABLE_LEADER
 
 /*
  * Keyboard Matrix Assignments
@@ -64,7 +65,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in your rules.mk, and define SOFT_SERIAL_PIN.
  */
 #define SOFT_SERIAL_PIN D2  // or D1, D2, D3, E6
-
+#define SPLIT_OLED_ENABLE
 //#define BACKLIGHT_PIN B7
 //#define BACKLIGHT_LEVELS 3
 //#define BACKLIGHT_BREATHING
@@ -146,16 +147,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* disable print */
 //#define NO_PRINT
-
+#define DYNAMIC_KEYMAP_LAYER_COUNT 3
 /* disable action features */
 //#define NO_ACTION_LAYER
-//#define NO_ACTION_TAPPING
-//#define NO_ACTION_ONESHOT
+#define NO_ACTION_TAPPING
+#define NO_ACTION_ONESHOT
 
 /* disable these deprecated features by default */
 #define NO_ACTION_MACRO
 #define NO_ACTION_FUNCTION
-
+#define NO_LEADER
 /* Bootmagic Lite key configuration */
 //#define BOOTMAGIC_LITE_ROW 0
 //#define BOOTMAGIC_LITE_COLUMN 0
