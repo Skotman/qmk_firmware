@@ -51,9 +51,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DIODE_DIRECTION COL2ROW
 
 /* Split hand configration */
-#define SPLIT_HAND_MATRIX_GRID B5, B1
-#define SPLIT_HAND_MATRIX_GRID_LOW_IS_RIGHT
-
+//#define SPLIT_HAND_MATRIX_GRID B5, B1
+//#define SPLIT_HAND_MATRIX_GRID_LOW_IS_RIGHT
+#define MASTER_LEFT
 /* Rotary encoder define*/
 #define ENCODERS_PAD_A { C6 }
 #define ENCODERS_PAD_B { B6 }
@@ -83,7 +83,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#    define RGBLIGHT_ANIMATIONS
 /*== or choose animations ==*/
  //   #define RGBLIGHT_EFFECT_BREATHING
-    #define RGBLIGHT_EFFECT_RAINBOW_MOOD
+ //   #define RGBLIGHT_EFFECT_RAINBOW_MOOD
 //#    define RGBLIGHT_EFFECT_RAINBOW_SWIRL
 //#    define RGBLIGHT_EFFECT_SNAKE
 //#    define RGBLIGHT_EFFECT_KNIGHT

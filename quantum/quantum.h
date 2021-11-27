@@ -37,9 +37,9 @@
 #endif
 
 #include "action_layer.h"
-#include "eeconfig.h"
+//#include "eeconfig.h"
 #include "bootloader.h"
-#include "bootmagic.h"
+//#include "bootmagic.h"
 #include "timer.h"
 #include "sync_timer.h"
 #include "config_common.h"
