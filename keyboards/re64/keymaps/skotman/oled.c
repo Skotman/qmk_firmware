@@ -3,11 +3,11 @@
 #define TAP_FRAMES 20
 #define ANIM_FRAME_DURATION 180
 
-void housekeeping_task_user(void) { // I run this in my throttled housekeeping.
+void housekeeping_task_user(void) {
   if (last_input_activity_elapsed() > 20000) {
     oled_off();
   } else {
-    if (!is_oled_on()) { //maybe don't need to check this?
+    if (!is_oled_on()) {
       oled_on();
     }
   }
