@@ -426,7 +426,7 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     return rotation;
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
     if(is_oled_on()){
     if (is_keyboard_master()) {
         print_status_narrow();
@@ -434,4 +434,6 @@ void oled_task_user(void) {
         dva_eve();
     }
     }
+    return false;
 }
+oddsd
