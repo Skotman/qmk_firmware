@@ -48,7 +48,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* COL2ROW, ROW2COL */
 #define DIODE_DIRECTION COL2ROW
-#define EE_HANDS
+#define MASTER_LEFT
+//#define EE_HANDS
 /* Split hand configration */
 //#define SPLIT_USB_DETECT
 //#define SPLIT_HAND_MATRIX_GRID B5, B1
@@ -65,7 +66,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #define SOFT_SERIAL_PIN D2  // or D1, D2, D3, E6
 #define SPLIT_OLED_ENABLE
-
 #define RGB_DI_PIN D3
 #ifdef RGB_DI_PIN
     #define RGBLED_NUM 80
