@@ -13,5 +13,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-DEFAULT_FOLDER = splitkb/aurora/corne/rev1
-ANALOG_DRIVER_REQUIRED = yes
+# NOTE: These are already enabled by default at the revision level
+#ENCODER_ENABLE = yes
+#OLED_ENABLE = yes
+
+# RGB Matrix is enabled at the revision level,
+# while we use the regular RGB underglow for testing
+RGB_MATRIX_ENABLE = no
+RGBLIGHT_ENABLE = yes
